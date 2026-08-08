@@ -5,5 +5,5 @@ services:
     build: './backedn'
     ports:
       - 3000:3000
-    environnment:
+    enviornment:
       - NODE_ENV=development
