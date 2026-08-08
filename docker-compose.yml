@@ -2,7 +2,7 @@ version: '1.0'
 
 services:
   backend:
-    build: './backedn'
+    build: './backend'
     ports:
       - 3000:3000
     environment:
