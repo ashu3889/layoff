@@ -4,6 +4,12 @@ services:
   backend:
     build: './backend'
     ports:
-      - 3000:3000
+      - 3000:4000
     environment:
       - NODE_ENV=development
+  frontend:
+    build: './frontend'
+    ports:
+      - 8080:80
+    environment:
+      - APP_URL=http://backend:4000
