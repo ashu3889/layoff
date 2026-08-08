@@ -1,18 +1,6 @@
 version: '1.0'
 
 services:
-  backend:
-    build: './backend'
-    ports:
-      - 3000:4000
-    environment:
-      - NODE_ENV=development
-  frontend:
-    build: './frontend'
-    ports:
-      - 8080:80
-    environment:
-      - API_URL=http://backend:4000
   database:
     image: postgres:15-alpine
     container_name: postgres_db
@@ -25,6 +13,26 @@ services:
       - "5432:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
+  backend:
+    build: . # Points to your backend source code directory
+    container_name: backend_app
+    restart: always
+    ports:
+      - "4000:4000"
+    environment:
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_USER=myuser
+      - DB_PASSWORD=mysecretpassword
+      - DB_NAME=myapp
+    depends_on:
+      - database
+  frontend:
+    build: './frontend'
+    ports:
+      - 8080:80
+    environment:
+      - API_URL=http://backend:4000
 
 volumes:
   pg_data:
